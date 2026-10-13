@@ -71,4 +71,9 @@ class Graph {
   isContainPoint(point) {
     return this.points.find((existingPoint) => existingPoint.equals(point));
   }
+
+  removeAll() {
+    this.points = [];
+    this.segments = [];
+  }
 }

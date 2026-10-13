@@ -4,16 +4,22 @@ class Point {
     this.y = y;
   }
 
-  draw(ctx, size = 18, color = "green") {
+  draw(ctx, { size = 18, color = "green", outline = false } = {}) {
     const rad = size / 2;
     ctx.beginPath();
     ctx.arc(this.x, this.y, rad, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.fill();
+    if (outline) {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "yellow";
+      ctx.arc(this.x, this.y, rad * 0.6, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   }
 
   equals(point) {
     return this.x === point.x && this.y === point.y;
   }
-
 }

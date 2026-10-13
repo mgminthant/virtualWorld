@@ -9,66 +9,14 @@
   <body>
     <h1>Hello Virtual World</h1>
     <canvas id="canvas"></canvas>
-    <div class="controls">
-      <button onclick="addRandomPoint()">Add Point</button>
-      <button onclick="addRandomSegment()">Add Segment</button>
-      <button onclick="removeRandomPoint()">Remove Point</button>
-      <button onclick="removeRandomSegment()">Remove Segment</button>
-    </div>
-
+    <div class="controls"></div>
+    <script src="./js/math/utils.js"></script>
+    <script src="./js/graphEditor.js"></script>
     <script src="./js/math/graph.js"></script>
     <script src="./js/primitives/point.js"></script>
     <script src="./js/primitives/segment.js"></script>
 
     <script>
-      function addRandomPoint() {
-        const result = graph.tryAddPoint(
-          new Point(
-            Math.random() * canvas.width,
-            Math.random() * canvas.height,
-          ),
-        );
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        graph.draw(ctx);
-      }
-
-      function addRandomSegment() {
-        let result = false;
-        const index1 = Math.floor(Math.random() * graph.points.length);
-        const index2 = Math.floor(Math.random() * graph.points.length);
-
-        result = graph.tryaddSegment(
-          new Segment(graph.points[index1], graph.points[index2]),
-        );
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        graph.draw(ctx);
-      }
-
-      function removeRandomPoint() {
-        if (graph.points.length === 0) {
-          console.log("There is no points");
-          return;
-        }
-        const index = Math.floor(Math.random() * graph.points.length);
-
-        graph.removePoint(graph.points[index]);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        graph.draw(ctx);
-      }
-
-      function removeRandomSegment() {
-        if (graph.segments.length === 0) {
-          console.log("There is no segments");
-          return;
-        }
-        const index = Math.floor(Math.random() * graph.segments.length);
-        graph.removeSegment(graph.segments[index]);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        graph.draw(ctx);
-      }
-
       canvas.width = 600;
       canvas.height = 600;
 
@@ -87,7 +35,14 @@
 
       const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3, s4, s5]);
 
-      graph.draw(ctx);
+      const graphEditor = new GraphEditor(graph, canvas);
+
+      animate();
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        graphEditor.display();
+        requestAnimationFrame(animate);
+      }
     </script>
   </body>
 </html>
