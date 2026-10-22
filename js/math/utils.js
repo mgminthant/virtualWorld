@@ -1,10 +1,10 @@
-function getNearestPoint(loc, points, threadshold = 10) {
+function getNearestPoint(loc, points, threshold = 10) {
   let minDist = Number.MAX_SAFE_INTEGER;
   let nearestPoint = null;
 
   for (const point of points) {
     const dist = getDistance(loc, point);
-    if (dist < minDist && dist < threadshold) {
+    if (dist < minDist && dist < threshold) {
       minDist = dist;
       nearestPoint = point;
     }
