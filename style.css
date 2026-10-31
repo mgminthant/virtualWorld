@@ -10,4 +10,7 @@ h1 {
 
 #canvas {
   background-color: gray;
+  display: block;
+  margin: 0 auto;
+  touch-action: none;
 }

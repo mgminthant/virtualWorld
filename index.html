@@ -3,34 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Virtual World</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" width="800" height="800"></canvas>
     <div class="controls"></div>
-    <script src="./js/math/utils.js"></script>
-    <script src="./js/graphEditor.js"></script>
-    <script src="./js/math/graph.js"></script>
-    <script src="./js/primitives/point.js"></script>
-    <script src="./js/primitives/segment.js"></script>
-
-    <script>
-      canvas.width = 800;
-      canvas.height = 800;
-
-      const ctx = canvas.getContext("2d");
-
-      const graph = new Graph();
-
-      const graphEditor = new GraphEditor(graph, canvas);
-
-      animate();
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        graphEditor.display();
-        requestAnimationFrame(animate);
-      }
-    </script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

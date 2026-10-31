@@ -1,4 +1,4 @@
-class Graph {
+export default class Graph {
   constructor(points = [], segments = []) {
     this.points = points;
     this.segments = segments;
@@ -14,44 +14,39 @@ class Graph {
     }
   }
 
-  tryaddSegment(segment) {
-    if (!this.isContainSegments(segment)) {
-      this.addSegment(segment);
-      return true;
+  tryAddSegment(segment) {
+    if (segment.p1.equals(segment.p2) || this.containsSegment(segment)) {
+      return false;
     }
-    return false;
+    this.addSegment(segment);
+    return true;
   }
 
   addSegment(segment) {
     this.segments.push(segment);
   }
 
-  isContainSegments(segment) {
-    return this.segments.find((seg) => seg.equals(segment));
+  containsSegment(segment) {
+    return this.segments.some((seg) => seg.equals(segment));
   }
 
-  removeSegment(seg) {
-    this.segments.splice(this.segments.indexOf(seg), 1);
+  removeSegment(segment) {
+    const index = this.segments.indexOf(segment);
+    if (index !== -1) {
+      this.segments.splice(index, 1);
+    }
   }
 
   getSegmentsWithPoint(point) {
-    const segs = [];
-    for (const seg of this.segments) {
-      if (seg.includes(point)) {
-        segs.push(seg);
-      }
-    }
-
-    return segs;
+    return this.segments.filter((seg) => seg.includes(point));
   }
 
   tryAddPoint(point) {
-    if (!this.isContainPoint(point)) {
-      this.addPoint(point);
-      return true;
-    } else {
+    if (this.containsPoint(point)) {
       return false;
     }
+    this.addPoint(point);
+    return true;
   }
 
   addPoint(point) {
@@ -59,17 +54,18 @@ class Graph {
   }
 
   removePoint(point) {
-    const segs = this.getSegmentsWithPoint(point);
-
-    for (const seg of segs) {
+    for (const seg of this.getSegmentsWithPoint(point)) {
       this.removeSegment(seg);
     }
 
-    this.points.splice(this.points.indexOf(point), 1);
+    const index = this.points.indexOf(point);
+    if (index !== -1) {
+      this.points.splice(index, 1);
+    }
   }
 
-  isContainPoint(point) {
-    return this.points.find((existingPoint) => existingPoint.equals(point));
+  containsPoint(point) {
+    return this.points.some((existingPoint) => existingPoint.equals(point));
   }
 
   removeAll() {

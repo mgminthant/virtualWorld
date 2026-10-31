@@ -1,11 +1,12 @@
-class Point {
+export default class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 
-  draw(ctx, { size = 18, color = "green", outline = false } = {}) {
+  draw(ctx, { size = 10, color = "green", outline = false } = {}) {
     const rad = size / 2;
+    ctx.save();
     ctx.beginPath();
     ctx.arc(this.x, this.y, rad, 0, Math.PI * 2);
     ctx.fillStyle = color;
@@ -14,9 +15,10 @@ class Point {
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "yellow";
-      ctx.arc(this.x, this.y, rad * 0.6, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, rad + 2, 0, Math.PI * 2);
       ctx.stroke();
     }
+    ctx.restore();
   }
 
   equals(point) {

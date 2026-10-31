@@ -7,8 +7,9 @@ This project is a small front-end experiment for drawing connected nodes on a ca
 ## Features
 
 - Draw points and line segments on a canvas
-- Add random points and segments to a graph
-- Remove points and segments interactively
+- Click empty space to add a point (and connect it to the selected point)
+- Drag points to move them
+- Right-click to clear the selection or remove a hovered point
 - Model graph relationships using plain JavaScript classes
 - No build step or dependencies required
 
@@ -19,8 +20,11 @@ virtual-world/
 ├── index.html
 ├── style.css
 ├── js/
+│   ├── main.js
+│   ├── graphEditor.js
 │   ├── math/
-│   │   └── graph.js
+│   │   ├── graph.js
+│   │   └── utils.js
 │   └── primitives/
 │       ├── point.js
 │       └── segment.js
@@ -29,10 +33,9 @@ virtual-world/
 
 ## How to Run
 
-Because this is a static browser project, you can run it in either of these ways:
+This project uses ES modules, so it must be served over HTTP (opening `index.html` directly with a `file://` URL will not load the scripts):
 
-1. Open `index.html` directly in a browser, or
-2. Serve the project locally:
+1. Serve the project locally:
 
 ```bash
 cd /path/to/virtual-world
@@ -70,14 +73,11 @@ The `Segment` class connects two `Point` instances and renders a line between th
 
 ## Controls
 
-The page includes buttons to:
-
-- Add Point
-- Add Segment
-- Remove Point
-- Remove Segment
-
-These controls generate random graph activity so you can visually test the graph behavior.
+- Left-click empty space: add a point and connect it to the selected point
+- Left-click a point: select it
+- Drag a point: move it and its connected segments
+- Right-click a point: remove it
+- Right-click empty space: clear the current selection
 
 ## Notes
 
