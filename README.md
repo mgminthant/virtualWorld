@@ -76,6 +76,8 @@ The `Segment` class connects two `Point` instances and renders a line between th
 - Left-click empty space: add a point and connect it to the selected point
 - Left-click a point: select it
 - Drag a point: move it and its connected segments
+- Mouse wheel: zoom in/out around the cursor
+- Middle-drag (or Shift + left-drag): pan the graph
 - Right-click a point: remove it
 - Right-click empty space: clear the current selection
 
