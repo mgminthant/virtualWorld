@@ -12,8 +12,6 @@ export default class GraphEditor {
     this.dragging = false;
     this.mouse = null;
 
-    this.ctx = this.canvas.getContext("2d");
-
     this.#addEventListeners();
   }
 
@@ -111,22 +109,31 @@ export default class GraphEditor {
     this.hovered = null;
   }
 
-  display() {
-    this.viewport.apply(this.ctx);
+  dispose() {
+    this.dragging = false;
+    this.viewport.endPan();
+    this.graph.removeAll();
+    this.selected = null;
+    this.hovered = null;
+    this.onChange();
+  }
 
-    this.graph.draw(this.ctx);
+  display() {
+    this.viewport.apply(this.viewport.ctx);
+
+    this.graph.draw(this.viewport.ctx);
     if (this.selected && this.mouse) {
       const intent = this.hovered || this.mouse;
-      new Segment(this.selected, intent).draw(this.ctx, {
+      new Segment(this.selected, intent).draw(this.viewport.ctx, {
         color: "white",
         dash: [3, 3],
       });
-      this.selected.draw(this.ctx, { outline: true });
+      this.selected.draw(this.viewport.ctx, { outline: true });
     }
     if (this.hovered) {
-      this.hovered.draw(this.ctx, { outline: true, color: "red" });
+      this.hovered.draw(this.viewport.ctx, { outline: true, color: "red" });
     }
 
-    this.viewport.restore(this.ctx);
+    this.viewport.restore(this.viewport.ctx);
   }
 }

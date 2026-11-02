@@ -19,6 +19,10 @@ export default class Viewport {
     this.#addEventListeners();
   }
 
+  load(info) {
+    this.zoom = info.zoom;
+    this.offset = new Point(info.offset.x, info.offset.y);
+  }
   getCanvasPosition(event) {
     const rect = this.canvas.getBoundingClientRect();
     return new Point(
